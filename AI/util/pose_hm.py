@@ -92,7 +92,7 @@ def pose_heatmap(vid):
 
     while cap.isOpened():
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
-        frame_index = frame_index + 30
+        frame_index = frame_index + 60
         success, frame = cap.read()
         if success:
             ####### HEAT MATRIX GENERATOR
@@ -133,7 +133,7 @@ def pose_heatmap(vid):
                     x1,y1,x2,y2 = item
                     p1, p2 = get_row_col(x1,y1), get_row_col(x2,y2)
 
-                    if (x1 < 800 or y2 > 500):
+                    if (x1 < 750 or y2 > 500):
                         #### Kneel
                         if (y1<200): 
                             for i in range(p1[0], p1[0]+3):
@@ -155,4 +155,4 @@ def pose_heatmap(vid):
     temp_4 = first_im.copy()
     stand_im = heatmap_im(stand_matrix, temp_4, height, width, alpha)
 
-    return dense_im, high_im, kneel_im, stand_im
+    return dense_im, high_im, kneel_im
