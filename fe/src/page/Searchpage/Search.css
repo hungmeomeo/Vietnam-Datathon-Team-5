@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 2px solid var(--text-primary);
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.datetime-picker-container {
+  display: flex;
+}
+
+.datetime-picker {
+  margin-right: 10px;
+  /* Additional styles as needed */
+}

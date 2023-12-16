@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Layout from "../../layouts/layout";
 import Button from "../../components/button/button";
 import Input from "../../components/input/inputFile/input";
+import Hero from "../../components/hero/hero";
+import Navbar from "../../components/navbar/navbar";
 import LineChart from "../../components/chart/line/line";
-import CheckBox from "../../components/menu/graph_menu/checkbox";
+
 const Homepage = () => {
   const [file, setFile] = useState(null);
   const [imageData, setImageData] = useState(null);
@@ -46,6 +48,10 @@ const Homepage = () => {
   return (
     <div>
       <Layout>
+        <Navbar></Navbar>
+      </Layout>
+      <Layout>
+        <Hero></Hero>
         <Input type="file" onChange={handleFileChange} accept="video/*" />
         <Button
           style={{ display: "flex", justifyContent: "center" }}
@@ -57,8 +63,6 @@ const Homepage = () => {
         <div>
           {imageData && <video controls src={imageData} alt="Fetched Video" />}
         </div>
-      <CheckBox />
-      <LineChart />
       </Layout>
     </div>
   );

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { HiLightBulb } from "react-icons/hi";
-import "./navbar.css";
+import styles from "./navbar.module.css";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <>
-      <nav>
-        <ul>
+      <nav className={styles.nav}>
+        <ul className={styles.ul}>
           <li>
-            <div className="navbarLogo" style={{ marginRight: "500px" }}>
+            <div className={styles.navbarLogo} style={{ marginRight: "500px" }}>
               <HiLightBulb
                 style={{
                   color: "var(--text-primary)",
@@ -21,13 +21,19 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <a href="/">Home</a>
+            <a href="/" className={styles.link}>
+              Home
+            </a>
           </li>
           <li>
-            <a href="/history">History</a>
+            <a href="/history" className={styles.link}>
+              History
+            </a>
           </li>
           <li>
-            <a href="/test">Tryout</a>
+            <a href="/test" className={styles.link}>
+              Tryout
+            </a>
           </li>
         </ul>
       </nav>
