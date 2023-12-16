@@ -6,7 +6,7 @@ import Hero from "../../components/hero/hero";
 import Navbar from "../../components/navbar/navbar";
 import "./homepage.css";
 import axios from "axios";
-import JSZip from 'jszip';
+import JSZip from "jszip";
 
 const Homepage = () => {
   const [file, setFile] = useState(null);
@@ -28,17 +28,21 @@ const Homepage = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await axios.post("http://127.0.0.1:5000/api/process", formData, {
-        responseType: 'arraybuffer',
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:5000/api/process",
+        formData,
+        {
+          responseType: "arraybuffer",
+        }
+      );
 
       const zip = await JSZip.loadAsync(response.data);
       const urls = [];
       await Promise.all(
         Object.keys(zip.files).map(async (fileName) => {
           const file = zip.file(fileName);
-          if (file && fileName.toLowerCase().endsWith('.png')) {
-            const data = await file.async('base64');
+          if (file && fileName.toLowerCase().endsWith(".png")) {
+            const data = await file.async("base64");
             const url = `data:image/png;base64,${data}`;
             urls.push(url);
           }
@@ -77,19 +81,37 @@ const Homepage = () => {
         >
           Process video
         </Button>
+      </Layout>
+      <Layout>
         <div className="container">
-        <ul>
-          <li className="display-part"><Button onClick={handlePrev}>{String.fromCharCode(8592)}</Button></li>
-          <li className="display-part"><img
-            src={imageData[currentIndex]}
-            alt={`Image ${currentIndex}`}
-            style={{ maxWidth: '300px', maxHeight: '300px', margin: '10px' }}
-          />
-          </li>
-          <li className="display-part"><Button onClick={handleNext}>{String.fromCharCode(8594)}</Button></li>
-        </ul>
+          {imageData.length > 0 && (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <ul>
+                <li className="display-part">
+                  <Button onClick={handlePrev}>
+                    {String.fromCharCode(8592)}
+                  </Button>
+                </li>
+                <li className="display-part">
+                  <img
+                    src={imageData[currentIndex]}
+                    alt={`Image ${currentIndex}`}
+                    style={{
+                      maxWidth: "800px",
+                      maxHeight: "800px",
+                      padding: "10px",
+                    }}
+                  />
+                </li>
+                <li className="display-part">
+                  <Button onClick={handleNext}>
+                    {String.fromCharCode(8594)}
+                  </Button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-        
       </Layout>
     </div>
   );
