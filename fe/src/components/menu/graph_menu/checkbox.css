@@ -1,0 +1,24 @@
+.checkbox-container {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: inline-block;
+  width: 33.333333%;
+  margin-bottom: 10px;
+  font-size: larger;
+}
+
+input {
+  margin-right: 5px;
+}
+
+p {
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Layout from "../../layouts/layout";
 import Button from "../../components/button/button";
 import Input from "../../components/input/inputFile/input";
-
+import LineChart from "../../components/chart/line/line";
+import CheckBox from "../../components/menu/graph_menu/checkbox";
 const Homepage = () => {
   const [file, setFile] = useState(null);
   const [imageData, setImageData] = useState(null);
@@ -25,7 +26,7 @@ const Homepage = () => {
       formData.append("file", file);
 
       // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
-      const response = await fetch("http://127.0.0.1:5000/api/dis_hm", {
+      const response = await fetch("http://127.0.0.1:5000/api/process", {
         method: "POST",
         body: formData,
       });
@@ -56,6 +57,8 @@ const Homepage = () => {
         <div>
           {imageData && <video controls src={imageData} alt="Fetched Video" />}
         </div>
+      <CheckBox />
+      <LineChart />
       </Layout>
     </div>
   );

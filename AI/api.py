@@ -4,22 +4,11 @@ import zipfile
 from PIL import Image
 from flask_cors import CORS
 
-from util.dis_hm import distribution_heatmap
 from util.pose_hm import pose_heatmap
 
 app = Flask(__name__)
 
 CORS(app)
-
-@app.route('/api/dis_hm', methods=['POST'])
-def get_dis_hm():
-    print(request.files)
-    vid = request.files['file']
-    vid_path = 'temp.mp4'
-    vid.save(vid_path)
-    img = distribution_heatmap(vid_path)
-    response = Response(img.tobytes(), content_type='image/jpeg')
-    return response 
 
 
 @app.route('/api/process', methods=['POST'])
