@@ -24,7 +24,7 @@ def get_pose_hm():
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
-        for i in range (0, 4):
+        for i in range (0, 3):
             img_bytes = temp_data[i]
             zip_file.writestr(f'image_{i}.png', img_bytes.tobytes())
      # Move the cursor to the beginning of the buffer
@@ -37,12 +37,12 @@ def get_pose_hm():
 
 @app.route('/api/period', methods=['GET'])
 def get_period_im():    
-    vid_path = 'premt/27_2_crop.mp4'
+    vid_path = 'temp.mp4'
     temp_data = pose_heatmap(vid_path)
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
-        for i in range (0, 4):
+        for i in range (0, 3):
             img_bytes = temp_data[i]
             zip_file.writestr(f'image_{i}.png', img_bytes.tobytes())
      # Move the cursor to the beginning of the buffer
