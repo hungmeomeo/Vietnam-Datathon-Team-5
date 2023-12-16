@@ -6,11 +6,14 @@ import Hero from "../../components/hero/hero";
 import Navbar from "../../components/navbar/navbar";
 import LineChart from "../../components/chart/line/line";
 
+import axios from "axios";
+import JSZip from 'jszip';
+
 const Homepage = () => {
   const [file, setFile] = useState(null);
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState([]);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
 
     // Check if the selected file is a video file
@@ -28,18 +31,24 @@ const Homepage = () => {
       formData.append("file", file);
 
       // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
-      const response = await fetch("http://127.0.0.1:5000/api/dis_hm", {
-        method: "POST",
-        body: formData,
+      const response = await axios.post("http://127.0.0.1:5000/api/process", formData, {
+        responseType: 'arraybuffer',
       });
 
-      if (response.ok) {
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-        setImageData(imageUrl);
-      } else {
-        console.error("File upload failed");
-      }
+      const zip = await JSZip.loadAsync(response.data);
+      const urls = [];
+      await Promise.all(
+        Object.keys(zip.files).map(async (fileName) => {
+          const file = zip.file(fileName);
+          if (file && fileName.toLowerCase().endsWith('.png')) {
+            const data = await file.async('base64');
+            const url = `data:image/png;base64,${data}`;
+            urls.push(url);
+          }
+        })
+      );
+
+      setImageData(urls);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -48,10 +57,11 @@ const Homepage = () => {
   return (
     <div>
       <Layout>
-        <Navbar></Navbar>
+        <Navbar />
       </Layout>
+
       <Layout>
-        <Hero></Hero>
+        <Hero />
         <Input type="file" onChange={handleFileChange} accept="video/*" />
         <Button
           style={{ display: "flex", justifyContent: "center" }}
@@ -61,7 +71,14 @@ const Homepage = () => {
         </Button>
 
         <div>
-          {imageData && <video controls src={imageData} alt="Fetched Video" />}
+          {imageData.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Image ${index}`}
+              style={{ maxWidth: '300px', maxHeight: '300px', margin: '10px' }}
+            />
+          ))}
         </div>
       </Layout>
     </div>

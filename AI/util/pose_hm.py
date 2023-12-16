@@ -92,7 +92,7 @@ def pose_heatmap(vid):
 
     while cap.isOpened():
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
-        frame_index = frame_index + 30
+        frame_index = frame_index + 60
         success, frame = cap.read()
         if success:
             ####### HEAT MATRIX GENERATOR
