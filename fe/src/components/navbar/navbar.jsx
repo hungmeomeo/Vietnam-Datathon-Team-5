@@ -10,7 +10,7 @@ const Navbar = () => {
       <nav className={styles.nav}>
         <ul className={styles.ul}>
           <li>
-            <div className={styles.navbarLogo} style={{ marginRight: "500px" }}>
+            <div className={styles.navbarLogo} style={{ marginRight: "400px" }}>
               <HiLightBulb
                 style={{
                   color: "var(--text-primary)",
@@ -27,12 +27,12 @@ const Navbar = () => {
           </li>
           <li>
             <a href="/history" className={styles.link}>
-              History
+              Lịch sử
             </a>
           </li>
           <li>
             <a href="/test" className={styles.link}>
-              Tryout
+              Phân tích
             </a>
           </li>
         </ul>

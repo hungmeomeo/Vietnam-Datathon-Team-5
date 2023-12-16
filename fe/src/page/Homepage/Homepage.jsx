@@ -97,9 +97,11 @@ const Homepage = () => {
                     src={imageData[currentIndex]}
                     alt={`Image ${currentIndex}`}
                     style={{
+
                       maxWidth: "800px",
                       maxHeight: "800px",
                       padding: "10px",
+
                     }}
                   />
                 </li>

@@ -1,6 +1,7 @@
 .nav {
   position: relative; /* Use relative positioning instead of absolute */
   align-items: center;
+  margin-bottom: 25px;
 }
 
 .nav .ul {
@@ -28,6 +29,30 @@
 
 .nav .link:hover {
   color: var(--text-primary);
+}
+
+/* time.module.css */
+
+.container {
+  position: relative;
+}
+
+.lineChart .legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lineChart .legend .dataset1 {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(255, 99, 132);
+}
+
+.lineChart .legend .dataset2 {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(53, 162, 235);
 }
 
 .navbarLogo {
