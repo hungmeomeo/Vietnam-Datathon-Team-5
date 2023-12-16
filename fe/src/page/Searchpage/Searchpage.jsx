@@ -12,6 +12,7 @@ import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import DateTimePicker from "react-datetime-picker";
 import "./Search.css";
+import Button from "../../components/button/button";
 
 const Search = () => {
   const options = [
@@ -86,6 +87,15 @@ const Search = () => {
             />
           </div>
         </div>
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          Process video
+        </Button>
       </Layout>
     </>
   );
