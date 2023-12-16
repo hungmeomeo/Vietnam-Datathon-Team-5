@@ -6,8 +6,7 @@ nav {
 
 nav ul {
   list-style-type: none;
-  margin-right: 2.5em; /* Use relative units like em */
-  display: flex;
+  margin-right: 4em; /* Use relative units like em */
   align-items: center;
 }
 
@@ -16,15 +15,17 @@ nav li {
 }
 
 nav li:not(:last-child) {
-  margin-right: 3em; /* Use relative units like em */
+  margin-right: 4em; /* Use relative units like em */
 }
 
 nav a {
   border: none;
+  white-space: nowrap;
   font-weight: 700;
   font-size: 1.4em; /* Use relative units like em */
   height: 100%;
   color: var(--text-secondary);
+  width: 4em; /* Adjust the width to your desired value */
 }
 
 nav a:hover {
