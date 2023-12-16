@@ -1,0 +1,15 @@
+ul{
+    display: flex;
+    list-style-type: none;
+    width: 100%;
+}
+
+/* .image-part {
+    display: block;
+} */
+
+.image-container {
+    align-items: center;
+    width: 100%;
+    display: flex;
+}

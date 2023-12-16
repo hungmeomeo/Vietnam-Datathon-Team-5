@@ -4,24 +4,22 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/inputFile/input";
 import Hero from "../../components/hero/hero";
 import Navbar from "../../components/navbar/navbar";
-import LineChart from "../../components/chart/line/line";
-
+import "./homepage.css";
 import axios from "axios";
 import JSZip from 'jszip';
 
 const Homepage = () => {
   const [file, setFile] = useState(null);
   const [imageData, setImageData] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
 
-    // Check if the selected file is a video file
     if (selectedFile && selectedFile.type.startsWith("video/")) {
       setFile(selectedFile);
     } else {
       alert("Please select a valid video file.");
-      // You may choose to reset the input or handle the error differently
     }
   };
 
@@ -30,7 +28,6 @@ const Homepage = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
       const response = await axios.post("http://127.0.0.1:5000/api/process", formData, {
         responseType: 'arraybuffer',
       });
@@ -49,9 +46,20 @@ const Homepage = () => {
       );
 
       setImageData(urls);
+      setCurrentIndex(0);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageData.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? imageData.length - 1 : prevIndex - 1
+    );
   };
 
   return (
@@ -69,17 +77,19 @@ const Homepage = () => {
         >
           Process video
         </Button>
-
-        <div>
-          {imageData.map((url, index) => (
-            <img
-              key={index}
-              src={url}
-              alt={`Image ${index}`}
-              style={{ maxWidth: '300px', maxHeight: '300px', margin: '10px' }}
-            />
-          ))}
+        <div className="container">
+        <ul>
+          <li className="display-part"><Button onClick={handlePrev}>{String.fromCharCode(8592)}</Button></li>
+          <li className="display-part"><img
+            src={imageData[currentIndex]}
+            alt={`Image ${currentIndex}`}
+            style={{ maxWidth: '300px', maxHeight: '300px', margin: '10px' }}
+          />
+          </li>
+          <li className="display-part"><Button onClick={handleNext}>{String.fromCharCode(8594)}</Button></li>
+        </ul>
         </div>
+        
       </Layout>
     </div>
   );
