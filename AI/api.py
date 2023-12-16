@@ -7,6 +7,7 @@ import random
 import cv2
 
 
+from util.detect_bh import predict_on_video
 from util.pose_hm import pose_heatmap
 
 app = Flask(__name__)
@@ -52,6 +53,15 @@ def get_period_im():
     response = make_response(send_file(zip_buffer, mimetype='application/zip', as_attachment=True, download_name='images.zip'))
 
     return response
+
+@app.route('/api/stat', methods=['POST'])
+def get_stat():
+    print(request.files)
+    vid = request.files['file']
+    vid_path = 'temp.mp4'
+    vid.save(vid_path)
+    temp_data = predict_on_video(vid_path)
+    return temp_data
     
 
 if __name__ == '__main__':
