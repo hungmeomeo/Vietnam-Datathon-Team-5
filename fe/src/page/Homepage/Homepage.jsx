@@ -4,21 +4,22 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/inputFile/input";
 import Hero from "../../components/hero/hero";
 import Navbar from "../../components/navbar/navbar";
-import LineChart from "../../components/chart/line/line";
+import "./homepage.css";
+import axios from "axios";
+import JSZip from "jszip";
 
 const Homepage = () => {
   const [file, setFile] = useState(null);
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
 
-    // Check if the selected file is a video file
     if (selectedFile && selectedFile.type.startsWith("video/")) {
       setFile(selectedFile);
     } else {
       alert("Please select a valid video file.");
-      // You may choose to reset the input or handle the error differently
     }
   };
 
@@ -27,31 +28,52 @@ const Homepage = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
-      const response = await fetch("http://127.0.0.1:5000/api/dis_hm", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:5000/api/process",
+        formData,
+        {
+          responseType: "arraybuffer",
+        }
+      );
 
-      if (response.ok) {
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-        setImageData(imageUrl);
-      } else {
-        console.error("File upload failed");
-      }
+      const zip = await JSZip.loadAsync(response.data);
+      const urls = [];
+      await Promise.all(
+        Object.keys(zip.files).map(async (fileName) => {
+          const file = zip.file(fileName);
+          if (file && fileName.toLowerCase().endsWith(".png")) {
+            const data = await file.async("base64");
+            const url = `data:image/png;base64,${data}`;
+            urls.push(url);
+          }
+        })
+      );
+
+      setImageData(urls);
+      setCurrentIndex(0);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
 
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageData.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? imageData.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <div>
       <Layout>
-        <Navbar></Navbar>
+        <Navbar />
       </Layout>
+
       <Layout>
-        <Hero></Hero>
+        <Hero />
         <Input type="file" onChange={handleFileChange} accept="video/*" />
         <Button
           style={{ display: "flex", justifyContent: "center" }}
@@ -59,9 +81,36 @@ const Homepage = () => {
         >
           Process video
         </Button>
-
-        <div>
-          {imageData && <video controls src={imageData} alt="Fetched Video" />}
+      </Layout>
+      <Layout>
+        <div className="container">
+          {imageData.length > 0 && (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <ul>
+                <li className="display-part">
+                  <Button onClick={handlePrev}>
+                    {String.fromCharCode(8592)}
+                  </Button>
+                </li>
+                <li className="display-part">
+                  <img
+                    src={imageData[currentIndex]}
+                    alt={`Image ${currentIndex}`}
+                    style={{
+                      maxWidth: "300px",
+                      maxHeight: "300px",
+                      margin: "10px",
+                    }}
+                  />
+                </li>
+                <li className="display-part">
+                  <Button onClick={handleNext}>
+                    {String.fromCharCode(8594)}
+                  </Button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </Layout>
     </div>
