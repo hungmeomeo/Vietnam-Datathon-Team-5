@@ -62,6 +62,7 @@ const About = () => {
         </div>
         <div className="container"></div>
       </Layout>
+
       <Layout>
         <LineChart></LineChart>
       </Layout>
