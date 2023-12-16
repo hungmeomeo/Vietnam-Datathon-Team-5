@@ -1,0 +1,21 @@
+/* .image-part {
+    display: block;
+} */
+ul {
+  display: flex;
+  list-style-type: none;
+  width: 60%;
+  align-items: center;
+  left: 60%;
+}
+.image-container {
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.display-part {
+  align-items: center;
+  width: 100%;
+  display: flex;
+}

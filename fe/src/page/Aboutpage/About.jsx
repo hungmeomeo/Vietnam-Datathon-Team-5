@@ -4,6 +4,7 @@ import Hero from "../../components/hero/hero";
 import Navbar from "../../components/navbar/navbar";
 import Select from "../../components/select/select";
 import Input from "../../components/input/inputText/input";
+import Button from "../../components/button/button";
 import "./About.css";
 import LineChart from "../../components/chart/line/line";
 
@@ -21,14 +22,20 @@ const About = () => {
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
-    setInputValue(selectedValue); // Set the input value to the selected option
-    setError(""); // Clear any existing error
+    setInputValue(selectedValue);
+    setError("");
   };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
-    setSelectedOption(""); // Clear the selected option when input changes
-    setError(""); // Clear any existing error
+    setSelectedOption("");
+    setError("");
+  };
+
+  const handleButtonClick = () => {
+    // Redirect to the specified link
+    window.location.href =
+      "https://drive.google.com/drive/folders/15A-3EFgcPRoM7_WSgwTKnWJ_ESYrKGhj?usp=drive_link";
   };
 
   return (
@@ -59,10 +66,19 @@ const About = () => {
               />
             </div>
           </form>
+          <Button
+            onClick={handleButtonClick}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "30px",
+            }}
+          >
+            Kho lưu trữ kết quả
+          </Button>
         </div>
         <div className="container"></div>
       </Layout>
-
       <Layout>
         <LineChart></LineChart>
       </Layout>
