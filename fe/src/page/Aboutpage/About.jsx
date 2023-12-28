@@ -14,9 +14,9 @@ const About = () => {
   const [error, setError] = useState("");
 
   const options = [
-    { value: "option1", label: "Option 1", daily: 80, weekly: 90, monthly: 85 },
-    { value: "option2", label: "Option 2", daily: 90, weekly: 70, monthly: 85 },
-    { value: "option3", label: "Option 3", daily: 90, weekly: 90, monthly: 95 },
+    { value: "Camera1", label: "Camera 1", daily: 80, weekly: 90, monthly: 85 },
+    { value: "Camera1", label: "Camera 2", daily: 90, weekly: 70, monthly: 85 },
+    { value: "Camera1", label: "Camera 3", daily: 90, weekly: 90, monthly: 95 },
   ];
 
   const handleSelectChange = (event) => {

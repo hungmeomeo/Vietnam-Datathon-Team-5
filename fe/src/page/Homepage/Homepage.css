@@ -4,13 +4,13 @@
 ul {
   display: flex;
   list-style-type: none;
-  width: 60%;
+  width: 120%;
   align-items: center;
-  left: 60%;
+  left: 120%;
 }
 .image-container {
   align-items: center;
-  width: 100%;
+  width: 200%;
   display: flex;
 }
 
@@ -18,4 +18,8 @@ ul {
   align-items: center;
   width: 100%;
   display: flex;
+}
+.display-image{
+  align-items: center;
+  width: 100%;
 }

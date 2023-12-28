@@ -12,6 +12,7 @@ const Homepage = () => {
   const [file, setFile] = useState(null);
   const [imageData, setImageData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const imageTitles = ["Tần suất di chuyển", "Tần suất cúi xuống", "Tần suất với tay lên cao"];
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -79,7 +80,7 @@ const Homepage = () => {
           style={{ display: "flex", justifyContent: "center" }}
           onClick={handleFileUpload}
         >
-          Process video
+          Xử lý video
         </Button>
       </Layout>
       <Layout>
@@ -92,7 +93,8 @@ const Homepage = () => {
                     {String.fromCharCode(8592)}
                   </Button>
                 </li>
-                <li className="display-part">
+                <li className="display-image">
+                  <div style={{ width: "100%", textAlign: "center"}}><h2>{imageTitles[currentIndex]}</h2></div>
                   <img
                     src={imageData[currentIndex]}
                     alt={`Image ${currentIndex}`}

@@ -4,7 +4,7 @@ import "./input.css";
 const InputFile = ({ onChange, accept }) => {
   return (
     <div className="input-container">
-      <label className="label">Choose a video file:</label>
+      <label className="label">Chọn video:</label>
       <input
         type="file"
         onChange={onChange}

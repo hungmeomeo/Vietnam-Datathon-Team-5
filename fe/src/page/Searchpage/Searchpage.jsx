@@ -18,9 +18,9 @@ import JSZip from 'jszip';
 
 const Search = () => {
   const options = [
-    { value: "option1", label: "Option 1", daily: 80, weekly: 90, monthly: 85 },
-    { value: "option2", label: "Option 2", daily: 90, weekly: 70, monthly: 85 },
-    { value: "option3", label: "Option 3", daily: 90, weekly: 90, monthly: 95 },
+    { value: "Camera1", label: "Camera 1", daily: 80, weekly: 90, monthly: 85 },
+    { value: "Camera1", label: "Camera 2", daily: 90, weekly: 70, monthly: 85 },
+    { value: "Camera1", label: "Camera 3", daily: 90, weekly: 90, monthly: 95 },
   ];
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -44,6 +44,8 @@ const Search = () => {
 
   const [file, setFile] = useState(null);
   const [imageData, setImageData] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const imageTitles = ["Tần suất di chuyển", "Tần suất cúi xuống", "Tần suất với tay lên cao"];
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -84,6 +86,16 @@ const Search = () => {
     } catch (error) {
       console.error("Error uploading file:", error);
     }
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageData.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? imageData.length - 1 : prevIndex - 1
+    );
   };
   return (
     <>
@@ -138,20 +150,43 @@ const Search = () => {
             display: "flex",
             justifyContent: "center",
             marginTop: "30px",
+            marginBottom:"30px",
           }}
           onClick={handleGetFile}
         >
-          Process video
+          Xử lý video
         </Button>
-        <div>
-          {imageData.map((url, index) => (
-            <img
-              key={index}
-              src={url}
-              alt={`Image ${index}`}
-              style={{ maxWidth: '300px', maxHeight: '300px', margin: '10px' }}
-            />
-          ))}
+        <div className="container">
+          {imageData.length > 0 && (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <ul>
+                <li className="display-part">
+                  <Button onClick={handlePrev}>
+                    {String.fromCharCode(8592)}
+                  </Button>
+                </li>
+                <li className="display-image">
+                  <div style={{ width: "100%", textAlign: "center"}}><h2>{imageTitles[currentIndex]}</h2></div>
+                  <img
+                    src={imageData[currentIndex]}
+                    alt={`Image ${currentIndex}`}
+                    style={{
+
+                      maxWidth: "800px",
+                      maxHeight: "800px",
+                      padding: "10px",
+
+                    }}
+                  />
+                </li>
+                <li className="display-part">
+                  <Button onClick={handleNext}>
+                    {String.fromCharCode(8594)}
+                  </Button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </Layout>
     </>

@@ -17,12 +17,17 @@ const Navbar = () => {
                   fontSize: "40px",
                 }}
               />
-              <span style={{ color: "var(--text-primary)" }}>Gro</span>cify
+              <span style={{ color: "var(--text-primary)" }}>Groc</span>ify
             </div>
           </li>
           <li>
+            <a href="/test" className={styles.link}>
+              Thống kê
+            </a>
+          </li>
+          <li>
             <a href="/" className={styles.link}>
-              Home
+              Phân tích
             </a>
           </li>
           <li>
@@ -30,11 +35,7 @@ const Navbar = () => {
               Lịch sử
             </a>
           </li>
-          <li>
-            <a href="/test" className={styles.link}>
-              Phân tích
-            </a>
-          </li>
+          
         </ul>
       </nav>
     </>

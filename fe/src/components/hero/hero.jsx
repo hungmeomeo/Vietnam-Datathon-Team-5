@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div className="homepageHero ">
       <h1 style={{ fontSize: "64px" }}>
-        <span style={{ color: "var(--text-primary)" }}>Gro</span>cify
+        <span style={{ color: "var(--text-primary)" }}>Groc</span>ify
       </h1>
       <h2
         style={{
